@@ -1,17 +1,19 @@
 #include "Graph.h"
 
-void Graph::addEdge(int u, int v) {
-    adjList[u].push_back(v);
-    adjList[v].push_back(u); // Đồ thị vô hướng (đường 2 chiều)
+// Dùng const std::string& để truyền tên tòa nhà cho tối ưu RAM
+void Graph::addEdge(const std::string& u, const std::string& v, int weight) {
+    // Đồ thị vô hướng: Nối từ u sang v, và từ v sang u với cùng khoảng cách
+    adjList[u].push_back({v, weight});
+    adjList[v].push_back({u, weight}); 
 }
 
-// Hàm này cực quan trọng để fen test xem đồ thị đã nối đúng chưa
 void Graph::printGraph() {
     for (const auto& pair : adjList) {
-        std::cout << "Dinh " << pair.first << " noi voi: ";
-        for (int neighbor : pair.second) {
-            std::cout << neighbor << " ";
+        std::cout << "VTT " << pair.first << " co the di den:\n";
+        
+        // Quét từng lối đi (edge) của tòa nhà hiện tại
+        for (const auto& edge : pair.second) {
+            std::cout << "  -> " << edge.destination << " (khoang cach: " << edge.weight << "m)\n";
         }
-        std::cout << "\n";
     }
 }

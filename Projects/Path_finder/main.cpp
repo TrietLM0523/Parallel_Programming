@@ -5,18 +5,19 @@
 int main() {
     Graph g;
     
-    // Nối một đồ thị test nhỏ (0 nối với 1, 2; 1 nối 3, 4...)
-    g.addEdge(0, 1);
-    g.addEdge(0, 2);
-    g.addEdge(1, 3);
-    g.addEdge(1, 4);
-    g.addEdge(2, 4);
+    // Nối các đỉnh với tên thực tế và trọng số (khoảng cách)
+    g.addEdge("C1", "C2", 50);
+    g.addEdge("C1", "C3", 60);
+    g.addEdge("C2", "C9", 40);
+    g.addEdge("C3", "C4", 30);
+    g.addEdge("C9", "Nga_5", 100);
+    g.addEdge("Nga_5", "Thu_Vien", 150);
 
-    std::cout << "--- HINH HAI DANH SACH KE ---\n";
+    std::cout << "--- HINH HAI MAP BACH KHOA ---\n";
     g.printGraph();
 
-    std::cout << "\n--- CHAY THUAT TOAN BFS ---\n";
-    BFS(g, 0); // Bắt đầu loang từ đỉnh 0
+    std::cout << "\n--- CHAY THUAT TOAN BFS (Chua xet trong so) ---\n";
+    BFS(g, "C1"); // Bắt đầu loang từ nhà C1
 
     return 0;
 }

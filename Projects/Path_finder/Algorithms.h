@@ -2,8 +2,9 @@
 #define ALGORITHMS_H
 
 #include "Graph.h"
+#include <string> // Phải thêm thư viện string
 
-// Truyền đồ thị g theo tham chiếu (&) để không bị copy tốn RAM
-void BFS(Graph& g, int startNode);
+// Dùng const std::string& để truyền tên cho tối ưu
+void BFS(Graph& g, const std::string& startNode);
 
 #endif

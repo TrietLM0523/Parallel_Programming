@@ -1,31 +1,32 @@
 #include "Algorithms.h"
 #include <queue>
-#include <unordered_set> // Dùng để đánh dấu các đỉnh đã thăm
+#include <unordered_set>
 #include <iostream>
 
-void BFS(Graph& g, int startNode) {
-    std::queue<int> q;
-    std::unordered_set<int> visited;
+void BFS(Graph& g, const std::string& startNode) {
+    std::queue<std::string> q;
+    std::unordered_set<std::string> visited;
 
-    // Bắt đầu từ đỉnh gốc
     q.push(startNode);
     visited.insert(startNode);
 
     std::cout << "Thu tu duyet BFS: ";
     
     while (!q.empty()) {
-        int current = q.front();
+        std::string current = q.front();
         q.pop();
-        std::cout << current << " "; // In ra đỉnh đang đứng
+        std::cout << current << " -> "; 
 
-        // Quét tất cả hàng xóm của đỉnh hiện tại trong Danh sách kề
-        for (int neighbor : g.adjList[current]) {
-            // Nếu hàng xóm chưa được thăm
+        // Quét các lối đi từ tòa nhà hiện tại
+        for (const auto& edge : g.adjList[current]) {
+            // Lấy tên tòa nhà đích ra để kiểm tra
+            std::string neighbor = edge.destination;
+            
             if (visited.find(neighbor) == visited.end()) {
-                visited.insert(neighbor); // Đánh dấu đã thăm
-                q.push(neighbor);         // Cho vào hàng đợi chờ xử lý
+                visited.insert(neighbor);
+                q.push(neighbor);
             }
         }
     }
-    std::cout << "\n";
+    std::cout << "HET\n";
 }
