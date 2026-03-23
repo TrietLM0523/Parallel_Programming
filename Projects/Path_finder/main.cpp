@@ -2,7 +2,21 @@
 #include "Algorithms.h"
 #include "MapData.h"
 #include <iostream>
-#include <chrono> // Thư viện đo thời gian
+#include <chrono>
+#include <vector>
+
+// Tuyệt chiêu rửa trôi bộ nhớ đệm
+void flushCPUCache() {
+    const int CACHE_SIZE = 8 * 1024 * 1024; // Mảng 32MB
+    std::vector<int> trash_data(CACHE_SIZE, 0);
+    for (int i = 0; i < CACHE_SIZE; ++i) {
+        trash_data[i] = i; 
+    }
+    volatile int sum = 0;
+    for (int i = 0; i < CACHE_SIZE; ++i) {
+        sum += trash_data[i];
+    }
+}
 
 int main() {
     Graph hustMap;
@@ -11,22 +25,28 @@ int main() {
     std::string start = "Cong_Parabol";
     std::string end = "Thu_Vien_TQB";
 
-    std::cout << "--- SO SANH HIEU NANG TIM DUONG ---\n";
-    std::cout << "Tu: " << start << " ---> Den: " << end << "\n\n";
+    std::cout << "--- DO LUONG KHACH QUAN VOI CO CHE XOA CACHE ---\n\n";
 
-    // 1. Chạy và đo thời gian Dijkstra
+    // 1. Chạy Dijkstra (Cold Start)
     auto startDijkstra = std::chrono::high_resolution_clock::now();
     Dijkstra(hustMap, start, end);
     auto endDijkstra = std::chrono::high_resolution_clock::now();
+    
     std::chrono::duration<double, std::micro> timeDijkstra = endDijkstra - startDijkstra;
-    std::cout << "=> Thoi gian chay Dijkstra: " << timeDijkstra.count() << " microseconds\n\n";
+    std::cout << "=> [Dijkstra] Thoi gian chay: " << timeDijkstra.count() << " micro-giay\n\n";
 
-    // 2. Chạy và đo thời gian A*
+    // ==========================================
+    std::cout << "[Hethong] Dang don dep RAM va Cache...\n\n";
+    flushCPUCache(); 
+    // ==========================================
+
+    // 2. Chạy A* (Lại là Cold Start, công bằng tuyệt đối)
     auto startAStar = std::chrono::high_resolution_clock::now();
     AStar(hustMap, start, end);
     auto endAStar = std::chrono::high_resolution_clock::now();
+    
     std::chrono::duration<double, std::micro> timeAStar = endAStar - startAStar;
-    std::cout << "=> Thoi gian chay A*: " << timeAStar.count() << " microseconds\n";
+    std::cout << "=> [A*]       Thoi gian chay: " << timeAStar.count() << " micro-giay\n";
 
     return 0;
 }

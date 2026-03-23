@@ -6,5 +6,5 @@
 
 void Dijkstra(Graph& g, const std::string& startNode, const std::string& endNode);
 void AStar(Graph& g, const std::string& startNode, const std::string& endNode);
-
+void flushCPUCache()
 #endif

@@ -6,9 +6,9 @@ TARGET = main
 
 all: $(TARGET)
 
-# Biên dịch tất cả các file cpp
-$(TARGET): main.cpp Graph.cpp Algorithms.cpp
-	$(CXX) $(CXXFLAGS) main.cpp Graph.cpp Algorithms.cpp -o $(TARGET)
+# Biên dịch tất cả 4 file cpp
+$(TARGET): main.cpp Graph.cpp Algorithms.cpp MapData.cpp
+	$(CXX) $(CXXFLAGS) main.cpp Graph.cpp Algorithms.cpp MapData.cpp -o $(TARGET)
 
 # Dọn rác (Dùng lệnh del cho Windows)
 clean:
