@@ -6,5 +6,6 @@
 
 void Dijkstra(Graph& g, const std::string& startNode, const std::string& endNode);
 void AStar(Graph& g, const std::string& startNode, const std::string& endNode);
-void flushCPUCache()
+void flushCPUCache();
+int getHeuristic(const std::string& nodeA, const std::string& nodeB);
 #endif

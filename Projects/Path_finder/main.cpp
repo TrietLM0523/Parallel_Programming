@@ -5,19 +5,6 @@
 #include <chrono>
 #include <vector>
 
-// Tuyệt chiêu rửa trôi bộ nhớ đệm
-void flushCPUCache() {
-    const int CACHE_SIZE = 8 * 1024 * 1024; // Mảng 32MB
-    std::vector<int> trash_data(CACHE_SIZE, 0);
-    for (int i = 0; i < CACHE_SIZE; ++i) {
-        trash_data[i] = i; 
-    }
-    volatile int sum = 0;
-    for (int i = 0; i < CACHE_SIZE; ++i) {
-        sum += trash_data[i];
-    }
-}
-
 int main() {
     Graph hustMap;
     loadHUSTMap(hustMap);
